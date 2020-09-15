@@ -1,10 +1,7 @@
 import React from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -13,7 +10,7 @@ import MailIcon from "@material-ui/icons/Mail";
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 200,
   },
   fullList: {
     width: "auto",
@@ -27,24 +24,24 @@ export default function SideBar(props) {
   return (
     <div>
       <Drawer anchor="left" open={isDrawerOpened} onClose={toggleDrawerOpened}>
-        <List>
+        <List className={classes.list}>
           <ListItem button>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="asdf" />
+            <ListItemText primary="About" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary="text" />
+            <ListItemText primary="Contacts" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="test" />
+            <ListItemText primary="Links" />
           </ListItem>
         </List>
       </Drawer>
