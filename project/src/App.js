@@ -1,6 +1,7 @@
 import React from "react";
+
 import Header from "./components/Header";
-import HomePage from "./components/HomePage";
+import Main from "./components/Main";
 
 function App() {
   let isAuth = false;
@@ -16,7 +17,8 @@ function App() {
         toggleDrawerOpened={toggleDrawerOpened}
         isDrawerOpened={isDrawerOpened}
       />
-      <HomePage />
+      <Main />
+      {/* <Footer /> */}
     </div>
   );
 }

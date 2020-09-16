@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   list: {
@@ -29,7 +30,9 @@ export default function SideBar(props) {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="About" />
+            <Link to="/about" onClick={toggleDrawerOpened}>
+              <ListItemText primary="About" />
+            </Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
