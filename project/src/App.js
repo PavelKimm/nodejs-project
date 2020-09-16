@@ -2,8 +2,9 @@ import React from "react";
 
 import Header from "./components/Header";
 import Main from "./components/Main";
+import Footer from "./components/Footer";
 
-function App() {
+export default function App() {
   let isAuth = false;
   const [isDrawerOpened, setIsDrawerOpened] = React.useState(false);
   const toggleDrawerOpened = () => {
@@ -18,9 +19,7 @@ function App() {
         isDrawerOpened={isDrawerOpened}
       />
       <Main />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
-
-export default App;

@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UserTopNavBar(props) {
+export default function Header(props) {
   const classes = useStyles();
 
   const { isAuth, toggleDrawerOpened, isDrawerOpened } = props;

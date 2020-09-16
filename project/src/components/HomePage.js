@@ -18,12 +18,10 @@ const useStyles = makeStyles({
 function HomePage() {
   const classes = useStyles();
   return (
-    <div>
-      <Container className={classes.container} maxWidth="md">
-        <img src={homeImg} width="100%" />
-        <div>Hello world!</div>
-      </Container>
-    </div>
+    <Container className={classes.container} maxWidth="md">
+      <img src={homeImg} width="100%" />
+      <div>Hello world!</div>
+    </Container>
   );
 }
 

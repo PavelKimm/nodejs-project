@@ -2,8 +2,6 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
-import aboutImg from "../pics/about.jpg";
-
 const useStyles = makeStyles({
   container: {
     alignItems: "center",
@@ -15,14 +13,13 @@ const useStyles = makeStyles({
   },
 });
 
-function AboutPage() {
+function ContactsPage() {
   const classes = useStyles();
   return (
     <Container className={classes.container} maxWidth="md">
-      <img src={aboutImg} width="100%" />
-      <div>This is about page</div>
+      <div>This is contacts page</div>
     </Container>
   );
 }
 
-export default AboutPage;
+export default ContactsPage;
