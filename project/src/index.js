@@ -1,12 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
-class Root extends Component {
-  render() {
-    return (
-      <div>Hello world</div>
-    );
-  }
-}
+import App from "./App";
 
-ReactDOM.render(<Root />, document.querySelector("#react-root"))
+const Root = () => {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+};
+
+ReactDOM.render(<Root />, document.querySelector("#react-root"));

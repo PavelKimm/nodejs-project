@@ -18,6 +18,14 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
     ],
   },
   output: {
@@ -31,5 +39,7 @@ module.exports = {
   ],
   devServer: {
     port: 8001,
+    // historyApiFallback: { index: "dist/index.html" },
+    historyApiFallback: true,
   },
 };
