@@ -1,0 +1,12 @@
+.list {
+  width: 200;
+}
+
+.fullList {
+  width: "auto";
+}
+
+.sidebar {
+  text-decoration: "line-through";
+  text-decoration: "none";
+}

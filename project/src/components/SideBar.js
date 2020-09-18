@@ -9,6 +9,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 import InfoIcon from "@material-ui/icons/Info";
 import LinkIcon from "@material-ui/icons/Link";
 import { Link } from "react-router-dom";
+// import s from "./css/SideBar.module.css";
 
 const useStyles = makeStyles({
   list: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles({
   sidebar: {
     textDecoration: "line-through",
     // textDecoration: "none",
+  },
+  active: {
+    color: "gold",
   },
 });
 

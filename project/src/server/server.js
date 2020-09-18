@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const myRoutes = require("./route");
+const routes = require("./routes");
 
 const bodyParserJSON = bodyParser.json();
 const router = express.Router();
@@ -10,7 +10,7 @@ const port = 3000;
 
 app.use(bodyParserJSON);
 app.use("/api", router);
-myRoutes(router);
+routes(router);
 
 // app.use(express.static("dist"));
 
