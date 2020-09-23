@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EditPostModal(props) {
   const classes = useStyles();
 
-  const { post } = props;
+  const { post, editPost } = props;
 
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [postData, setPostData] = useState({
@@ -65,18 +65,8 @@ export default function EditPostModal(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .patch(baseUrl + `/api/posts/` + postData._id, {
-        title: postData.title,
-        content: postData.content,
-      })
-      .then((res) => {
-        console.log(res.data);
-        handleClose();
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    editPost(postData);
+    handleClose();
   };
 
   return (

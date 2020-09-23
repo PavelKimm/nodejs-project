@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ContactsPage from "./pages/ContactsPage";
 import LinksPage from "./pages/LinksPage";
+import LoginPage from "./pages/LoginPage";
 
 export default function Main() {
   return (
@@ -14,6 +15,7 @@ export default function Main() {
         <Route path="/about" component={AboutPage} />
         <Route path="/contacts" component={ContactsPage} />
         <Route path="/links" component={LinksPage} />
+        <Route exact path="/login" component={LoginPage} />
       </Switch>
     </main>
   );

@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
 const dbName = "mydb";
 const url = "mongodb://localhost:27017/" + dbName;
@@ -23,10 +25,9 @@ const bodyParserJSON = bodyParser.json();
 const router = express.Router();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 // CORS settings
-const cors = require("cors");
 // var whitelist = ["http://localhost:8001", "*"];
 // var corsOptions = {
 //   origin: function (origin, callback) {
@@ -47,5 +48,5 @@ routes(router);
 // app.use(express.static("dist"));
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`The server has started on port: ${port}`);
 });

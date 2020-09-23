@@ -6,9 +6,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import axios from "axios";
-
-import { baseUrl } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -35,8 +32,10 @@ const useStyles = makeStyles((theme) => ({
   button: { marginTop: 50 },
 }));
 
-export default function CreatePostModal() {
+export default function CreatePostModal(props) {
   const classes = useStyles();
+
+  const { createPost } = props;
 
   const [postData, setPostData] = useState({ title: "", content: "" });
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -56,81 +55,70 @@ export default function CreatePostModal() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(baseUrl + `/api/posts`, {
-        title: postData.title,
-        content: postData.content,
-      })
-      .then((res) => {
-        console.log(res.data);
-        handleClose();
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    createPost(postData);
+    setPostData({ title: "", content: "" });
+    handleClose();
   };
 
   return (
     <div>
-      <div>
-        <Button onClick={handleOpen}>Create post</Button>
-        {/* <Tooltip title="You don't have permission to do this">
+      <Button onClick={handleOpen}>Create post</Button>
+      {/* <Tooltip title="You don't have permission to do this">
           <span>
             <Button disabled>Create post</Button>
           </span>
         </Tooltip> */}
 
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={isModalOpened}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={isModalOpened}>
-            <div className={classes.paper}>
-              <form
-                className={classes.postCreationForm}
-                noValidate
-                autoComplete="off"
-                onSubmit={handleSubmit}
-              >
-                <div>
-                  <TextField
-                    className={classes.titleTextField}
-                    id="standard-basic"
-                    label="Title"
-                    type="text"
-                    name="title"
-                    onChange={handleChange("title")}
-                  />
-                </div>
-                <div>
-                  <TextField
-                    className={classes.contentTextField}
-                    id="outlined-textarea"
-                    label="Content"
-                    type="text"
-                    name="content"
-                    //   placeholder="Placeholder"
-                    multiline
-                    variant="outlined"
-                    onChange={handleChange("content")}
-                  />
-                </div>
-                <Button className={classes.button} type="submit">
-                  Create
-                </Button>
-              </form>
-            </div>
-          </Fade>
-        </Modal>
-      </div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={isModalOpened}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={isModalOpened}>
+          <div className={classes.paper}>
+            <form
+              className={classes.postCreationForm}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <div>
+                <TextField
+                  className={classes.titleTextField}
+                  id="standard-basic"
+                  label="Title"
+                  type="text"
+                  name="title"
+                  onChange={handleChange("title")}
+                />
+              </div>
+              <div>
+                <TextField
+                  className={classes.contentTextField}
+                  id="outlined-textarea"
+                  label="Content"
+                  type="text"
+                  name="content"
+                  //   placeholder="Placeholder"
+                  multiline
+                  variant="outlined"
+                  onChange={handleChange("content")}
+                />
+              </div>
+              <Button className={classes.button} type="submit">
+                Create
+              </Button>
+            </form>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }

@@ -3,39 +3,57 @@ import axios from "axios";
 
 import { baseUrl } from "../constants";
 import Post from "./PostComponent";
-
-function getPosts() {
-  return axios
-    .get(baseUrl + `/api/posts`)
-    .then((res) => {
-      const posts = res.data;
-      return posts;
-    })
-    .catch((error) => {
-      console.error(error);
-      return [];
-    });
-}
+import CreatePostModal from "./CreatePostModal";
+import {
+  getPostsApi,
+  createPostApi,
+  editPostApi,
+  deletePostApi,
+} from "../../api/posts";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getPosts().then((result) => {
+    getPostsApi().then((result) => {
       setPosts(result);
     });
   }, []);
 
-  // useEffect(() => {
-  //   getPosts().then((result) => {
-  //     setPosts(result);
-  //   });
-  // });
+  const createPost = (postData) => {
+    createPostApi(postData)
+      .then(() => {
+        return getPostsApi();
+      })
+      .then((newPosts) => setPosts(newPosts));
+  };
+
+  const editPost = (postData) => {
+    editPostApi(postData)
+      .then(() => {
+        return getPostsApi();
+      })
+      .then((newPosts) => setPosts(newPosts));
+  };
+
+  const deletePost = (postId) => {
+    deletePostApi(postId)
+      .then(() => {
+        return getPostsApi();
+      })
+      .then((newPosts) => setPosts(newPosts));
+  };
 
   return (
     <div>
+      <CreatePostModal createPost={createPost} />
       {posts.map((post) => (
-        <Post key={post._id} post={post} />
+        <Post
+          key={post._id}
+          post={post}
+          editPost={editPost}
+          deletePost={deletePost}
+        />
       ))}
     </div>
   );

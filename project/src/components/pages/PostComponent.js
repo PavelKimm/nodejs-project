@@ -15,6 +15,8 @@ import axios from "axios";
 import { baseUrl } from "../constants";
 import EditPostModal from "./EditPostModal";
 
+import { getPosts, deletePost } from "../../api/posts";
+
 const styles = {
   root: {
     background: (props) =>
@@ -69,29 +71,16 @@ MyButtonRaw.propTypes = {
 };
 const MyButton = withStyles(styles)(MyButtonRaw);
 
-function deletePost(_id) {
-  if (window.confirm("Are you sure?")) {
-    axios
-      .delete(baseUrl + `/api/posts/` + _id)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-}
-
 export default function PostComponent(props) {
   const classes = useStyles();
-  const { post } = props;
+  const { post, editPost, deletePost } = props;
 
   return (
     <div className={classes.post}>
       <div className={classes.postTitle}>{post.title}</div>
       <div className={classes.postContent}>{post.content}</div>
       <div className={classes.editButton}>
-        <EditPostModal post={post} />
+        <EditPostModal post={post} editPost={editPost} />
       </div>
       <div className={classes.deleteButton}>
         <Tooltip title="Delete">

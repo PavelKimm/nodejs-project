@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  loginButton: {
+    textDecoration: "none",
+    color: "white",
+  },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
@@ -239,9 +243,9 @@ export default function Header(props) {
               </IconButton>
             </div>
           ) : (
-            <div>
+            <Link to="/login" className={classes.loginButton}>
               <Button color="inherit">Login</Button>
-            </div>
+            </Link>
           )}
           <div className={classes.sectionMobile}>
             <IconButton

@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 import homeImg from "./pics/home.jpg";
 import PostList from "./PostList";
-import CreatePostModal from "./CreatePostModal";
 
 const useStyles = makeStyles({
   container: {
@@ -26,7 +25,6 @@ export default function HomePage() {
 
   return (
     <Container className={classes.container} maxWidth="md">
-      <CreatePostModal />
       <PostList />
       <img src={homeImg} width="100%" />
     </Container>
