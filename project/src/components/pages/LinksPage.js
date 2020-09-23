@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
 });
 
-function LinksPage() {
+export default function LinksPage() {
   const classes = useStyles();
   return (
     <Container className={classes.container} maxWidth="md">
@@ -21,5 +21,3 @@ function LinksPage() {
     </Container>
   );
 }
-
-export default LinksPage;

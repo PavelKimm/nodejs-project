@@ -80,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  link: {
+    textDecoration: "none",
+    color: "white",
+  },
 }));
 
 export default function Header(props) {
@@ -189,7 +193,7 @@ export default function Header(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/">
+          <Link to="/" className={classes.link}>
             <Typography className={classes.title} variant="h6" noWrap>
               React Project
             </Typography>

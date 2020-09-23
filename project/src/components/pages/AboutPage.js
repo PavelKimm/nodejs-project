@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
-import aboutImg from "../pics/about.jpg";
+import aboutImg from "./pics/about.jpg";
 
 const useStyles = makeStyles({
   container: {

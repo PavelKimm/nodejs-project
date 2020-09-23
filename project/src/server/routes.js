@@ -1,13 +1,9 @@
-const Users = require("./Users");
+const Posts = require("./Posts");
 
 module.exports = function (router) {
-  router.post("/create-collection", Users.createCollection);
-  router.post("/create", Users.createOne);
-  router.get("/get", Users.get);
-  router.patch("/update", Users.updateOne);
-  router.delete("/delete", Users.deleteOne);
-  router.delete("/delete-many", Users.deleteMany);
+  router.get("/posts", Posts.get);
+  router.post("/posts", Posts.createOne);
+  router.get("/posts/:postId", Posts.getOne);
+  router.patch("/posts/:postId", Posts.updateOne);
+  router.delete("/posts/:postId", Posts.deleteOne);
 };
-
-//   insertMany,
-//   getOne,
