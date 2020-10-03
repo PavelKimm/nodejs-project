@@ -8,9 +8,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import axios from "axios";
-
-import { baseUrl } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

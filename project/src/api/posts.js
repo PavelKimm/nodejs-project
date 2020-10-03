@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { baseUrl } from "../components/constants";
+import { baseUrl } from "../constants";
 
 export function getPostsApi() {
   return axios

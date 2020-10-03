@@ -10,7 +10,7 @@ import {
   logout,
   register,
   getCurrentUser,
-} from "../../services/auth.service";
+} from "../../api/services/auth.service";
 
 const useStyles = makeStyles({
   container: {
@@ -37,13 +37,13 @@ export default function LoginPage() {
   const classes = useStyles();
   let form, checkBtn;
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  function onChangeUsername(e) {
-    setUsername(e.target.value);
+  function onChangeEmail(e) {
+    setEmail(e.target.value);
   }
 
   function onChangePassword(e) {
@@ -61,7 +61,7 @@ export default function LoginPage() {
     console.log(checkBtn);
 
     if (checkBtn.context._errors.length === 0) {
-      login(username, password).then(
+      login(email, password).then(
         () => {
           //   this.props.history.push("/profile");
           window.location.reload();
@@ -100,13 +100,13 @@ export default function LoginPage() {
             }}
           >
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email</label>
               <Input
                 type="text"
                 className="form-control"
-                name="username"
-                value={username}
-                onChange={onChangeUsername}
+                name="email"
+                value={email}
+                onChange={onChangeEmail}
                 validations={[required]}
               />
             </div>

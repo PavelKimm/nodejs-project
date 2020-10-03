@@ -15,9 +15,6 @@ const useStyles = makeStyles({
     fontSize: 18,
     // backgroundColor: "green",
   },
-  link: {
-    textDecoration: "none",
-  },
 });
 
 export default function HomePage() {

@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import "@babel/polyfill";
 
+import store from "./redux/store";
 import App from "./App";
+// import "./style.css";
 
 const Root = () => {
   return (
-    <BrowserRouter>
+    <Provider store={store}>
       <App />
-    </BrowserRouter>
+    </Provider>
   );
 };
 

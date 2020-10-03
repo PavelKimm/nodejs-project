@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { Button } from "@material-ui/core";
 
-import { baseUrl } from "../constants";
+import { setNameAC } from "../../redux/actions/userActions";
 import Post from "./PostComponent";
 import CreatePostModal from "./CreatePostModal";
 import {
@@ -43,6 +44,8 @@ export default function PostList() {
       })
       .then((newPosts) => setPosts(newPosts));
   };
+
+  const dispatch = useDispatch();
 
   return (
     <div>

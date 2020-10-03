@@ -10,12 +10,8 @@ import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownAltIcon from "@material-ui/icons/ThumbDownAlt";
-import axios from "axios";
 
-import { baseUrl } from "../constants";
 import EditPostModal from "./EditPostModal";
-
-import { getPosts, deletePost } from "../../api/posts";
 
 const styles = {
   root: {

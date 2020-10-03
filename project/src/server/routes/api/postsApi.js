@@ -1,30 +1,22 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
-  title: String,
-  content: String,
-});
+const Post = require("../../models/postModel");
 
 exports.get = async function (req, res, next) {
-  const Post = mongoose.model("Post", postSchema);
   const posts = await Post.find({}).sort("-_id");
   res.json(posts);
 };
 
 exports.getOne = async function (req, res, next) {
-  const Post = mongoose.model("Post", postSchema);
-  var objectId = mongoose.Types.ObjectId(req.params.postId);
-  await Post.findOne({ _id: objectId }, function (err, post) {
+  await Post.findOne({ _id: req.params.postId }, function (err, post) {
     if (err) throw err;
     res.json(post);
   });
 };
 
 exports.createOne = async function (req, res, next) {
-  const Post = mongoose.model("Post", postSchema);
   const post = new Post({
-    _id: null,
+    _id: mongoose.Types.ObjectId(),
     title: req.body.title,
     content: req.body.content,
   });
@@ -35,10 +27,8 @@ exports.createOne = async function (req, res, next) {
 };
 
 exports.updateOne = async function (req, res, next) {
-  const Post = mongoose.model("Post", postSchema);
-  var objectId = mongoose.Types.ObjectId(req.params.postId);
   await Post.updateOne(
-    { _id: objectId },
+    { _id: req.params.postId },
     { $set: { title: req.body.title, content: req.body.content } },
     { new: true },
     (err, post) => {
@@ -51,8 +41,7 @@ exports.updateOne = async function (req, res, next) {
 };
 
 exports.deleteOne = async function (req, res, next) {
-  const Post = mongoose.model("Post", postSchema);
-  var objectId = mongoose.Types.ObjectId(req.params.postId);
-  await Post.deleteOne({ _id: objectId });
+  // var objectId = mongoose.Types.ObjectId(req.params.postId);
+  await Post.deleteOne({ _id: req.params.postId });
   res.json("no content");
 };

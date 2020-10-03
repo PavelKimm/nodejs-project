@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const routes = require("./routes");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
@@ -8,23 +7,22 @@ require("dotenv").config();
 const dbName = "mydb";
 const url = "mongodb://localhost:27017/" + dbName;
 
-mongoose.connect(url, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function () {
-  // we're connected!
-});
-
-const bodyParserJSON = bodyParser.json();
-const router = express.Router();
+mongoose.connect(
+  url,
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (err) throw err;
+    console.log("MongoDB connection established!");
+  }
+);
 
 const app = express();
+const bodyParserJSON = bodyParser.json();
 const port = process.env.PORT || 5000;
 
 // CORS settings
@@ -40,12 +38,10 @@ const port = process.env.PORT || 5000;
 // };
 // app.use(cors(corsOptions));
 app.use(cors());
-
 app.use(bodyParserJSON);
-app.use("/api", router);
-routes(router);
-
-// app.use(express.static("dist"));
+app.use("/api/posts", require("./routes/postRoutes"));
+app.use("/api", require("./routes/authRoutes"));
+app.use(express.static("dist"));
 
 app.listen(port, () => {
   console.log(`The server has started on port: ${port}`);
