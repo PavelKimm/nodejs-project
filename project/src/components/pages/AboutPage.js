@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
-import homeImg from "../pics/home.jpg";
+import aboutImg from "./pics/about.jpg";
 
 const useStyles = makeStyles({
   container: {
@@ -15,14 +15,14 @@ const useStyles = makeStyles({
   },
 });
 
-function HomePage() {
+function AboutPage() {
   const classes = useStyles();
   return (
     <Container className={classes.container} maxWidth="md">
-      <img src={homeImg} width="100%" />
-      <div>Hello world!</div>
+      <img src={aboutImg} width="100%" />
+      <div>This is about page</div>
     </Container>
   );
 }
 
-export default HomePage;
+export default AboutPage;

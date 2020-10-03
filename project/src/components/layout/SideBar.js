@@ -9,7 +9,6 @@ import ChatIcon from "@material-ui/icons/Chat";
 import InfoIcon from "@material-ui/icons/Info";
 import LinkIcon from "@material-ui/icons/Link";
 import { Link } from "react-router-dom";
-// import s from "./css/SideBar.module.css";
 
 const useStyles = makeStyles({
   list: {
@@ -18,10 +17,6 @@ const useStyles = makeStyles({
   fullList: {
     width: "auto",
   },
-  sidebar: {
-    textDecoration: "line-through",
-    // textDecoration: "none",
-  },
   active: {
     color: "gold",
   },
@@ -29,7 +24,7 @@ const useStyles = makeStyles({
 
 export default function SideBar(props) {
   const classes = useStyles();
-  const sidebarLinkStyle = { textDecoration: "none", color: "darkGrey" };
+  const sidebarLinkStyle = { color: "darkGrey" };
 
   const { toggleDrawerOpened, isDrawerOpened } = props;
   return (
