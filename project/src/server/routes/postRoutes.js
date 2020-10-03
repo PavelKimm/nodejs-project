@@ -2,7 +2,6 @@ const router = require("express").Router();
 const PostsApi = require("./api/postsApi");
 
 // const Auth = require("./Auth");
-
 // router.post("/login", Auth.get);
 
 router.get("/", PostsApi.get);

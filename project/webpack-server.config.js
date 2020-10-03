@@ -1,8 +1,7 @@
-// const HtmlWebPackPlugin = require("html-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 
-const common = {
-  devtool: "cheap-module-source-map",
+module.exports = {
+  target: "node",
   module: {
     rules: [
       {
@@ -10,6 +9,16 @@ const common = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
+          options: {
+            babelrc: false,
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: [
+              "@babel/plugin-proposal-object-rest-spread",
+              "@babel/plugin-proposal-class-properties",
+              "@babel/plugin-transform-runtime",
+              "@babel/plugin-transform-async-to-generator",
+            ],
+          },
         },
       },
       {
@@ -21,10 +30,6 @@ const common = {
         ],
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
@@ -34,26 +39,12 @@ const common = {
       },
     ],
   },
-  // resolve: { alias: { "@material-ui/core": "@material-ui/core/es" } },
+  output: {
+    filename: "serverBundle.js",
+  },
+  entry: "./src/server/server.js",
+  externals: {
+    express: "commonjs2 express",
+  },
+  // externals: [nodeExternals()],
 };
-
-module.exports = [
-  {
-    ...common,
-    entry: "./src/index.js",
-    output: {
-      // filename: "bundle.js",
-      path: __dirname + "/dist",
-    },
-    // devServer: {
-    //   port: 3000,
-    //   historyApiFallback: true,
-    // },
-  },
-  {
-    ...common,
-    target: "node",
-    entry: "./src/server/server.js",
-    externals: [nodeExternals()],
-  },
-];

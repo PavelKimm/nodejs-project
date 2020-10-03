@@ -38,7 +38,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    port: 8001,
+    port: 3000,
     // historyApiFallback: { index: "dist/index.html" },
     historyApiFallback: true,
   },

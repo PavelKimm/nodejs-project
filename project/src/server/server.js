@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+const postsApi = require("./routes/postRoutes");
+const authApi = require("./routes/authRoutes");
+
 const dbName = "mydb";
 const url = "mongodb://localhost:27017/" + dbName;
 
@@ -39,8 +42,8 @@ const port = process.env.PORT || 5000;
 // app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParserJSON);
-app.use("/api/posts", require("./routes/postRoutes"));
-app.use("/api", require("./routes/authRoutes"));
+app.use("/api/posts", postsApi);
+app.use("/api", authApi);
 app.use(express.static("dist"));
 
 app.listen(port, () => {
