@@ -9,16 +9,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            babelrc: false,
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: [
-              "@babel/plugin-proposal-object-rest-spread",
-              "@babel/plugin-proposal-class-properties",
-              "@babel/plugin-transform-runtime",
-              "@babel/plugin-transform-async-to-generator",
-            ],
-          },
         },
       },
       {
@@ -44,7 +34,7 @@ module.exports = {
   },
   entry: "./src/server/server.js",
   externals: {
-    express: "commonjs2 express",
+    express: "commonjs express",
+    mongoose: "commonjs mongoose",
   },
-  // externals: [nodeExternals()],
 };
