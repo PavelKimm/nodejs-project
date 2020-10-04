@@ -63,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
       width: "20ch",
     },
   },
+  // link: {
+  //   textDecoration: "none",
+  //   color: "white",
+  // },
 }));
 
 export default function Header(props) {

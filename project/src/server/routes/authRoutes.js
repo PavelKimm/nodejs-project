@@ -1,12 +1,19 @@
-const router = require("express").Router();
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware";
+import {
+  register,
+  login,
+  deleteAccount,
+  validateJwt,
+  getCurrentUserData,
+} from "../api/authApi";
 
-const authMiddleware = require("../middleware/authMiddleware");
-const AuthApi = require("./api/authApi");
+const router = express.Router();
 
-router.post("/register", AuthApi.register);
-router.post("/login", AuthApi.login);
-router.delete("/accounts/delete", authMiddleware, AuthApi.deleteAccount);
-router.post("/validate-jwt", AuthApi.validateJwt);
-router.get("/current-user-data", authMiddleware, AuthApi.getCurrentUserData);
+router.post("/register", register);
+router.post("/login", login);
+router.delete("/accounts/delete", authMiddleware, deleteAccount);
+router.post("/validate-jwt", validateJwt);
+router.get("/current-user-data", authMiddleware, getCurrentUserData);
 
-module.exports = router;
+export default router;
