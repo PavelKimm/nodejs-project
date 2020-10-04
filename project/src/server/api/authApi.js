@@ -1,8 +1,9 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../../models/userModel");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-exports.register = async (req, res) => {
+import User from "../models/userModel";
+
+export const register = async (req, res) => {
   try {
     const { email, password, password2 } = req.body;
     let { firstName, lastName } = req.body;
@@ -19,11 +20,11 @@ exports.register = async (req, res) => {
     if (password !== password2)
       return res.status(400).json({ msg: "Passwords don't match!" });
 
-    // const existingUser = await User.findOne({ email: email });
-    // if (existingUser)
-    //   return res
-    //     .status(400)
-    //     .json({ msg: "An account with such email already exists!" });
+    const existingUser = await User.findOne({ email: email });
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ msg: "An account with such email already exists!" });
 
     let displayName;
     if (firstName.trim() || lastName.trim()) {
@@ -52,7 +53,7 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -79,7 +80,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.deleteAccount = async (req, res) => {
+export const deleteAccount = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.user);
     res.json(deletedUser);
@@ -88,7 +89,7 @@ exports.deleteAccount = async (req, res) => {
   }
 };
 
-exports.validateJwt = async (req, res) => {
+export const validateJwt = async (req, res) => {
   try {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
@@ -105,7 +106,7 @@ exports.validateJwt = async (req, res) => {
   }
 };
 
-exports.getCurrentUserData = async (req, res) => {
+export const getCurrentUserData = async (req, res) => {
   const user = await User.findById(req.user);
   res.json({
     id: user._id,

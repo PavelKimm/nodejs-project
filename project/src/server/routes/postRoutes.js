@@ -1,14 +1,12 @@
-const router = require("express").Router();
-const PostsApi = require("./api/postsApi");
+import express from "express";
+import { get, createOne, getOne, updateOne, deleteOne } from "../api/postsApi";
 
-// const Auth = require("./Auth");
+const router = express.Router();
 
-// router.post("/login", Auth.get);
+router.get("/", get);
+router.post("/", createOne);
+router.get("/:postId", getOne);
+router.patch("/:postId", updateOne);
+router.delete("/:postId", deleteOne);
 
-router.get("/", PostsApi.get);
-router.post("/", PostsApi.createOne);
-router.get("/:postId", PostsApi.getOne);
-router.patch("/:postId", PostsApi.updateOne);
-router.delete("/:postId", PostsApi.deleteOne);
-
-module.exports = router;
+export default router;

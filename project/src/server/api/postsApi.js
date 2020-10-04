@@ -1,20 +1,19 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import Post from "../models/postModel";
 
-const Post = require("../../models/postModel");
-
-exports.get = async function (req, res, next) {
+export const get = async function (req, res, next) {
   const posts = await Post.find({}).sort("-_id");
   res.json(posts);
 };
 
-exports.getOne = async function (req, res, next) {
+export const getOne = async function (req, res, next) {
   await Post.findOne({ _id: req.params.postId }, function (err, post) {
     if (err) throw err;
     res.json(post);
   });
 };
 
-exports.createOne = async function (req, res, next) {
+export const createOne = async function (req, res, next) {
   const post = new Post({
     _id: mongoose.Types.ObjectId(),
     title: req.body.title,
@@ -26,7 +25,7 @@ exports.createOne = async function (req, res, next) {
   });
 };
 
-exports.updateOne = async function (req, res, next) {
+export const updateOne = async function (req, res, next) {
   await Post.updateOne(
     { _id: req.params.postId },
     { $set: { title: req.body.title, content: req.body.content } },
@@ -40,8 +39,7 @@ exports.updateOne = async function (req, res, next) {
   );
 };
 
-exports.deleteOne = async function (req, res, next) {
-  // var objectId = mongoose.Types.ObjectId(req.params.postId);
+export const deleteOne = async function (req, res, next) {
   await Post.deleteOne({ _id: req.params.postId });
   res.json("no content");
 };

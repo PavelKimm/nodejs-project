@@ -5,7 +5,7 @@ import "@babel/polyfill";
 
 import store from "./redux/store";
 import App from "./App";
-// import "./style.css";
+import "./style.css";
 
 const Root = () => {
   return (

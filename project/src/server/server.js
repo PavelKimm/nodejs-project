@@ -1,29 +1,19 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const dbName = "mydb";
-const url = "mongodb://localhost:27017/" + dbName;
+import connectToMongo from "./api/connectToMongo";
+import postRoutes from "./routes/postRoutes";
+import authRoutes from "./routes/authRoutes";
 
-mongoose.connect(
-  url,
-  {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  },
-  (err) => {
-    if (err) throw err;
-    console.log("MongoDB connection established!");
-  }
-);
+const port = process.env.PORT || 5000;
+
+dotenv.config();
+connectToMongo();
 
 const app = express();
 const bodyParserJSON = bodyParser.json();
-const port = process.env.PORT || 5000;
 
 // CORS settings
 // var whitelist = ["http://localhost:8001", "*"];
@@ -39,9 +29,11 @@ const port = process.env.PORT || 5000;
 // app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParserJSON);
-app.use("/api/posts", require("./routes/postRoutes"));
-app.use("/api", require("./routes/authRoutes"));
 app.use(express.static("dist"));
+
+// routes
+app.use("/api/posts", postRoutes);
+app.use("/api", authRoutes);
 
 app.listen(port, () => {
   console.log(`The server has started on port: ${port}`);

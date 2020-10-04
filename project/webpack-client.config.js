@@ -4,6 +4,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        loader: "style-loader!css-loader",
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -38,7 +42,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    port: 8001,
+    port: 3000,
     // historyApiFallback: { index: "dist/index.html" },
     historyApiFallback: true,
   },
