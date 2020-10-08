@@ -29,5 +29,5 @@ const Root = () => {
   );
 };
 
-ReactDOM.render(<Root />, document.querySelector("#react-root"));
-// ReactDOM.hydrate(<Root />, document.querySelector("#react-root"));
+// ReactDOM.render(<Root />, document.querySelector("#react-root"));
+ReactDOM.hydrate(<Root />, document.querySelector("#react-root"));

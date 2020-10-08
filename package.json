@@ -8,9 +8,8 @@
     "build-client": "webpack --config webpack-client.config.js --mode development --progress",
     "build-server": "webpack --config webpack-server.config.js --mode development --progress",
     "start-client": "webpack-dev-server --config webpack-client.config.js --open --mode development",
-    "start-server": "node dist/serverBundle.js",
-    "start": "node src/server/server",
-    "start-client2": "node dist/main.js"
+    "start-server": "node build/serverBundle.js",
+    "start": "node src/server/server"
   },
   "author": "",
   "license": "ISC",
