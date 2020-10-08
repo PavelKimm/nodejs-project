@@ -24,6 +24,7 @@ function renderFullPage(html, css) {
     <!DOCTYPE html>
     <html>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>React Project</title>
         <link rel="stylesheet" href="style.css">
         <style id="jss-server-side">${css}</style>
@@ -86,7 +87,7 @@ app.use(
 // app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParserJSON);
-app.use(express.static("dist"));
+app.use(express.static("build"));
 
 // routes
 app.use("/api/posts", postRoutes);

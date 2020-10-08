@@ -1,3 +1,4 @@
+const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
@@ -31,15 +32,16 @@ module.exports = {
     ],
   },
   output: {
+    path: path.resolve(__dirname, "./build"),
     filename: "serverBundle.js",
-  },
-  externals: {
-    express: "commonjs express",
-    mongoose: "commonjs mongoose",
   },
   plugins: [
     new CopyPlugin({
       patterns: [{ from: "./src/style.css", to: "" }],
     }),
   ],
+  externals: {
+    express: "commonjs express",
+    mongoose: "commonjs mongoose",
+  },
 };
