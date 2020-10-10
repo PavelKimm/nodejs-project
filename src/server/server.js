@@ -44,7 +44,7 @@ function handleRender(req, res) {
     sheets.collect(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <StaticRouter>
+          <StaticRouter location={req.url} context={{}}>
             <App />
           </StaticRouter>
         </Provider>
