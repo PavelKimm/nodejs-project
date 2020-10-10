@@ -113,7 +113,6 @@ function RegisterPage(props) {
 
   function handleRegister(e) {
     e.preventDefault();
-
     dispatch(setUserDataStartAC());
 
     if (checkBtn.context._errors.length === 0) {
