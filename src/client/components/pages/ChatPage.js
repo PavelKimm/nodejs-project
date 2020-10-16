@@ -117,7 +117,7 @@ function ChatPage(props) {
   }
 
   useEffect(() => {
-    const socket_ = socketIOClient("http://localhost:5000");
+    const socket_ = socketIOClient("https://harmist.space");
 
     socket_.on("fetch_message", (data) => {
       setMessages(data);
@@ -154,6 +154,7 @@ function ChatPage(props) {
             className={classes}
             type="text"
           />
+          <button type="submit">Send</button>
         </form>
       ) : (
         <div className={classes}>
