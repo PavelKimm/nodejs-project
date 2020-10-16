@@ -13,7 +13,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Form from "react-validation/build/form";
-import CheckButton from "react-validation/build/button";
 
 import {
   register,
@@ -87,8 +86,6 @@ function RegisterPage(props) {
     if (props.isAuthed) history.push("/");
   });
 
-  let checkBtn;
-
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -115,72 +112,62 @@ function RegisterPage(props) {
     e.preventDefault();
     dispatch(setUserDataStartAC());
 
-    if (checkBtn.context._errors.length === 0) {
-      register(email, firstName, lastName, password, password2)
-        .then(() => {
-          login(email, password)
-            .then(() => {
-              getUserData()
-                .then((res) => {
-                  const userData = res.data;
-                  if (userData) {
-                    dispatch(setIsAuthedTrueAC());
-                    dispatch(setUserDataSuccessAC(userData));
-                  }
-                })
-                .catch((error) => {
-                  const resMessage =
-                    (error.response &&
-                      error.response.data &&
-                      error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+    register(email, firstName, lastName, password, password2)
+      .then(() => {
+        login(email, password)
+          .then(() => {
+            getUserData()
+              .then((res) => {
+                const userData = res.data;
+                if (userData) {
+                  dispatch(setIsAuthedTrueAC());
+                  dispatch(setUserDataSuccessAC(userData));
+                }
+              })
+              .catch((error) => {
+                const resMessage =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
 
-                  dispatch(setUserDataErrorAC());
-                  dispatch(
-                    setSnackbarMessageAC({
-                      msg: resMessage,
-                      severity: "error",
-                    })
-                  );
-                });
-            })
-            .catch((error) => {
-              const resMessage =
-                (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                error.message ||
-                error.toString();
+                dispatch(setUserDataErrorAC());
+                dispatch(
+                  setSnackbarMessageAC({
+                    msg: resMessage,
+                    severity: "error",
+                  })
+                );
+              });
+          })
+          .catch((error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
 
-              dispatch(setUserDataErrorAC());
-              dispatch(
-                setSnackbarMessageAC({
-                  msg: resMessage,
-                  severity: "error",
-                })
-              );
-            });
-        })
-        .catch((error) => {
-          const resMessage = error.response.data.msg;
-          dispatch(setUserDataErrorAC());
-          dispatch(
-            setSnackbarMessageAC({
-              msg: resMessage,
-              severity: "error",
-            })
-          );
-        });
-    } else {
-      dispatch(setUserDataErrorAC());
-      dispatch(
-        setSnackbarMessageAC({
-          msg: "Some error occurred!",
-          severity: "error",
-        })
-      );
-    }
+            dispatch(setUserDataErrorAC());
+            dispatch(
+              setSnackbarMessageAC({
+                msg: resMessage,
+                severity: "error",
+              })
+            );
+          });
+      })
+      .catch((error) => {
+        const resMessage = error.response.data.msg;
+        dispatch(setUserDataErrorAC());
+        dispatch(
+          setSnackbarMessageAC({
+            msg: resMessage,
+            severity: "error",
+          })
+        );
+      });
   }
 
   return (
@@ -290,12 +277,6 @@ function RegisterPage(props) {
                 </Link>
               </Grid>
             </Grid>
-            <CheckButton
-              style={{ display: "none" }}
-              ref={(c) => {
-                checkBtn = c;
-              }}
-            />
           </Form>
         </div>
         <Box mt={5}>

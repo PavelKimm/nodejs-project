@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
-import homeImg from "./pics/home.jpg";
+// import homeImg from "./pics/home.jpg";
 import PostList from "./PostList";
 
 const useStyles = makeStyles({
@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <Container className={classes.container} maxWidth="md">
       <PostList />
-      <img src={homeImg} width="100%" />
+      {/* <img src={homeImg} width="100%" /> */}
     </Container>
   );
 }

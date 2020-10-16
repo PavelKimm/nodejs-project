@@ -1,7 +1,7 @@
 import express from "express";
 import session from "express-session";
-import connectRedis from "connect-redis";
-import Redis from "ioredis";
+// import connectRedis from "connect-redis";
+// import Redis from "ioredis";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
@@ -10,6 +10,9 @@ import { ServerStyleSheets, ThemeProvider } from "@material-ui/core/styles";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import http from "http";
+import socketIo from "socket.io";
+import randomColor from "randomcolor";
 
 import { REDIS_OPTIONS, SESSION_OPTIONS, APP_PORT } from "./constants";
 import connectToMongo from "./api/connectToMongo";
@@ -18,6 +21,8 @@ import authRoutes from "./routes/authRoutes";
 import App from "../client/App";
 import theme from "../theme";
 import store from "../client/redux/store";
+
+import Message from "./models/messageModel";
 
 function renderFullPage(html, css) {
   return `
@@ -61,17 +66,17 @@ dotenv.config();
 connectToMongo();
 const bodyParserJSON = bodyParser.json();
 
-const RedisStore = connectRedis(session);
-const client = new Redis(REDIS_OPTIONS);
+// const RedisStore = connectRedis(session);
+// const client = new Redis(REDIS_OPTIONS);
 
 const app = express();
 
-app.use(
-  session({
-    ...SESSION_OPTIONS,
-    store: new RedisStore({ client }),
-  })
-);
+// app.use(
+//   session({
+//     ...SESSION_OPTIONS,
+//     store: new RedisStore({ client }),
+//   })
+// );
 
 // CORS settings
 // var whitelist = ["http://localhost:8001", "*"];
@@ -99,6 +104,62 @@ app.get("*", (req, res) => {
   handleRender(req, res);
 });
 
-app.listen(APP_PORT, () => {
-  console.log(`The server has started on port: ${APP_PORT}`);
+//
+// socketIO
+const server = http.createServer(app);
+const io = socketIo(server, { serveClient: false });
+const users = [];
+
+//listen on every connection
+io.on("connection", (socket) => {
+  console.log("New user connected", socket.id);
+
+  // get online user list
+  socket.emit("get_users", users);
+  socket.on("get_users", () => {
+    socket.emit("get_users", users);
+  });
+
+  // user connected
+  socket.on("user_connected", (username) => {
+    function usernameWasUpdated(user, index, array) {
+      if (user.id === socket.id) user.username = username;
+      return user.id === socket.id;
+    }
+
+    if (users.some(usernameWasUpdated)) {
+      io.emit("get_users", users);
+    } else {
+      const color = randomColor();
+      users.push({ id: socket.id, username: username, color: color });
+      io.emit("user_connected", { users: users, newUser: username });
+    }
+  });
+
+  //listen on new_message
+  socket.on("new_message", async (data) => {
+    console.log(data);
+
+    const messageData = {
+      sender: data.sender,
+      message: data.message,
+      timestamp: Date.now(),
+    };
+    io.emit("new_message", messageData);
+
+    const newMessage = new Message(messageData);
+    await newMessage.save();
+  });
+
+  //Disconnect
+  socket.on("disconnect", (data) => {
+    console.log(" User disconnected", socket.id);
+    users.map((user, index) => {
+      if (user.id === socket.id) users.splice(index, 1);
+    });
+    io.emit("get_users", users);
+  });
 });
+
+server.listen(APP_PORT, () => console.log(`Listening on port ${APP_PORT}`));
+// server.listen(port, "0.0.0.0", () => console.log(`Listening on port ${port}`));

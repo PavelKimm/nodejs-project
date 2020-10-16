@@ -63,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
       width: "20ch",
     },
   },
+  appBar: {
+    backgroundColor: "#f7d600",
+  },
   // link: {
   //   textDecoration: "none",
   //   color: "white",
@@ -76,7 +79,7 @@ export default function Header(props) {
 
   return (
     <header id="header" className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
