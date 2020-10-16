@@ -44,7 +44,7 @@ export default function SideBar(props) {
             </ListItem>
           </Link>
           <Link
-            to="/contacts"
+            to="/chat"
             onClick={toggleDrawerOpened}
             style={sidebarLinkStyle}
           >
@@ -52,11 +52,11 @@ export default function SideBar(props) {
               <ListItemIcon>
                 <ChatIcon />
               </ListItemIcon>
-              <ListItemText primary="Contacts" />
+              <ListItemText primary="Chat" />
             </ListItem>
           </Link>
           <Link
-            to="/links"
+            to="/contacts"
             onClick={toggleDrawerOpened}
             style={sidebarLinkStyle}
           >
@@ -64,7 +64,7 @@ export default function SideBar(props) {
               <ListItemIcon>
                 <LinkIcon />
               </ListItemIcon>
-              <ListItemText primary="Links" />
+              <ListItemText primary="Contacts" />
             </ListItem>
           </Link>
         </List>

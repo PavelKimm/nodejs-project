@@ -14,7 +14,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Form from "react-validation/build/form";
-import CheckButton from "react-validation/build/button";
 
 import { login, getUserData } from "../../api/authApi";
 import {
@@ -84,8 +83,6 @@ function LoginPage(props) {
     if (props.userData.id) history.push("/");
   });
 
-  let checkBtn;
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -101,67 +98,57 @@ function LoginPage(props) {
     e.preventDefault();
     dispatch(setUserDataStartAC());
 
-    if (checkBtn.context._errors.length === 0) {
-      login(email, password)
-        .then(() => {
-          getUserData()
-            .then((res) => {
-              const userData = (res && res.data) || false;
+    login(email, password)
+      .then(() => {
+        getUserData()
+          .then((res) => {
+            const userData = (res && res.data) || false;
 
-              if (userData) {
-                dispatch(setIsAuthedTrueAC());
-                dispatch(setUserDataSuccessAC(userData));
-              } else {
-                dispatch(
-                  setSnackbarMessageAC({
-                    msg: "Invalid credentials!",
-                    severity: "error",
-                  })
-                );
-                dispatch(setUserDataErrorAC());
-              }
-            })
-            .catch((error) => {
-              const resMessage =
-                (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                error.message ||
-                error.toString();
-
+            if (userData) {
+              dispatch(setIsAuthedTrueAC());
+              dispatch(setUserDataSuccessAC(userData));
+            } else {
               dispatch(
                 setSnackbarMessageAC({
-                  msg: resMessage,
+                  msg: "Invalid credentials!",
                   severity: "error",
                 })
               );
               dispatch(setUserDataErrorAC());
-            });
-        })
-        .catch((error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          dispatch(
-            setSnackbarMessageAC({
-              msg: resMessage,
-              severity: "error",
-            })
-          );
-          dispatch(setUserDataErrorAC());
-        });
-    } else {
-      dispatch(
-        setSnackbarMessageAC({
-          msg: "Some error occurred!",
-          severity: "error",
-        })
-      );
-      dispatch(setUserDataErrorAC());
-    }
+            }
+          })
+          .catch((error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+
+            dispatch(
+              setSnackbarMessageAC({
+                msg: resMessage,
+                severity: "error",
+              })
+            );
+            dispatch(setUserDataErrorAC());
+          });
+      })
+      .catch((error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch(
+          setSnackbarMessageAC({
+            msg: resMessage,
+            severity: "error",
+          })
+        );
+        dispatch(setUserDataErrorAC());
+      });
   }
 
   return (
@@ -232,12 +219,6 @@ function LoginPage(props) {
             <Box mt={5}>
               <Copyright />
             </Box>
-            <CheckButton
-              style={{ display: "none" }}
-              ref={(c) => {
-                checkBtn = c;
-              }}
-            />
           </Form>
         </div>
       </Grid>

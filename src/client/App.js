@@ -29,6 +29,8 @@ import CustomSnackbar from "./components/snackbars/CustomSnackbar";
 function App(props) {
   const dispatch = useDispatch();
 
+  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
+
   useEffect(() => {
     if (getTokenFromLocalStorage()) dispatch(setIsAuthedTrueAC());
     async function setUserData() {
@@ -53,8 +55,6 @@ function App(props) {
     }
     setUserData();
   }, []);
-
-  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
 
   const toggleDrawerOpened = () => {
     setIsDrawerOpened(!isDrawerOpened);

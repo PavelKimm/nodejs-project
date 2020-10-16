@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import AboutPage from "../pages/AboutPage";
 import ContactsPage from "../pages/ContactsPage";
-import LinksPage from "../pages/LinksPage";
+import ChatPage from "../pages/ChatPage";
 import LoginPage from "../auth/LoginPage";
 import RegisterPage from "../auth/RegisterPage";
 
@@ -17,7 +17,7 @@ export default function Main() {
 
       <Route exact path="/about" component={AboutPage} />
       <Route exact path="/contacts" component={ContactsPage} />
-      <Route exact path="/links" component={LinksPage} />
+      <Route exact path="/chat" component={ChatPage} />
     </Switch>
   );
 }
