@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-
 import axios from "axios";
+import moment from "moment";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -22,8 +22,6 @@ import CheckButton from "react-validation/build/button";
 import socketIOClient from "socket.io-client"; //ws
 import { baseUrl } from "../../constants";
 
-import moment from "moment";
-
 const useStyles = makeStyles({
   container: {
     alignItems: "center",
@@ -34,15 +32,16 @@ const useStyles = makeStyles({
   },
 
   textarea: {
-    minWidth: "400px",
+    minWidth: "350px",
     width: "40vw",
     backgroundColor: "#fffde7",
     border: "1px solid #ffefa2",
     overflow: "hidden",
     height: "276px",
     margin: "auto",
-    // maxHeight: "250px",
     overflowY: "auto",
+    display: "flex",
+    flexDirection: "column-reverse",
   },
 
   messageList: {
@@ -71,6 +70,11 @@ const useStyles = makeStyles({
     fontSize: "14px",
     float: "right",
     color: "#100da5",
+  },
+
+  messageInput: {
+    width: "100%",
+    maxWidth: "250px",
   },
 });
 
@@ -205,7 +209,7 @@ function ChatPage(props) {
           </div>
           <input
             disabled={!(usernameIsSet || userData.displayName)}
-            className={classes}
+            className={classes.messageInput}
             type="text"
             value={message}
             onChange={onChangeMessage}
