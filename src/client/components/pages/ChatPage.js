@@ -22,17 +22,18 @@ import CheckButton from "react-validation/build/button";
 import socketIOClient from "socket.io-client"; //ws
 import { baseUrl } from "../../constants";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     alignItems: "center",
     textAlign: "center",
     fontWeight: "bold",
     paddingTop: 10,
     fontSize: 18,
+    marginBottom: "80px",
   },
 
   textarea: {
-    minWidth: "350px",
+    minWidth: "340px",
     width: "40vw",
     backgroundColor: "#fffde7",
     border: "1px solid #ffefa2",
@@ -73,10 +74,28 @@ const useStyles = makeStyles({
   },
 
   messageInput: {
+    display: "block",
     width: "100%",
-    maxWidth: "250px",
+    maxWidth: "380px",
+    margin: "15px auto 5px",
   },
-});
+  sendMessageButton: {
+    // [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.up("sm")]: {
+      marginRight: "18.5vw",
+    },
+    display: "block",
+    float: "right",
+  },
+
+  usernameInput: {
+    display: "inline-block",
+    width: "220px",
+
+    // margin: "",
+    // marginRight: "10px",
+  },
+}));
 
 function ChatPage(props) {
   const classes = useStyles();
@@ -150,15 +169,36 @@ function ChatPage(props) {
   return (
     <Container className={classes.container} maxWidth="md">
       {!(usernameIsSet || isAuthed) ? (
-        <form onSubmit={handleSetUsername} className={classes}>
+        <form onSubmit={handleSetUsername} className={classes.form}>
           <h1 className={classes}>Choose username</h1>
-          <input
+          <TextField
             value={username}
             onChange={onChangeUsername}
-            className={classes}
-            type="text"
+            className={classes.usernameInput}
+            label="Username..."
+            variant="outlined"
+            inputProps={{
+              style: {
+                height: "46px",
+                padding: "5px 14px",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                paddingLeft: "17px",
+                paddingBottom: "10px",
+                marginBottom: "10px",
+              },
+            }}
           />
-          <button type="submit">Send</button>
+          <Button
+            style={{ height: "56px" }}
+            variant="outlined"
+            type="submit"
+            color="primary"
+          >
+            Choose
+          </Button>
         </form>
       ) : (
         <div className={classes}>
@@ -214,7 +254,24 @@ function ChatPage(props) {
             value={message}
             onChange={onChangeMessage}
           />
-          <button type="submit">Send message</button>
+          {usernameIsSet || userData.displayName ? (
+            <Button
+              className={classes.sendMessageButton}
+              type="submit"
+              variant="outlined"
+              color="primary"
+            >
+              Send message
+            </Button>
+          ) : (
+            <Button
+              className={classes.sendMessageButton}
+              variant="outlined"
+              disabled
+            >
+              Send message
+            </Button>
+          )}
         </form>
       </div>
     </Container>
