@@ -269,7 +269,7 @@ function ChatPage(props) {
               variant="outlined"
               disabled
             >
-              Send message
+              Send
             </Button>
           )}
         </form>
