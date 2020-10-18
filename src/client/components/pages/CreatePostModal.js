@@ -17,18 +17,64 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    width: "50%",
+    [theme.breakpoints.up("md")]: {
+      width: "50%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "70%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
     height: 400,
   },
 
   postCreationForm: {
     margin: theme.spacing(1),
     textAlign: "center",
-    width: "95%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
-  titleTextField: { marginTop: 50, width: "50%" },
-  contentTextField: { marginTop: 50, width: "50%" },
-  button: { marginTop: 50 },
+  titleTextField: {
+    marginTop: 50,
+    marginLeft: "-20px",
+    [theme.breakpoints.up("sm")]: {
+      width: "50%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "95%",
+    },
+  },
+  contentTextField: {
+    marginTop: 50,
+    marginLeft: "-20px",
+    [theme.breakpoints.up("sm")]: {
+      width: "50%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "95%",
+    },
+  },
+  button: {
+    marginTop: 50,
+    marginLeft: "-20px",
+  },
+  fileInput: {
+    [theme.breakpoints.down("sm")]: {
+      margin: "40px 0 0 5px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "40px 0 0 15px",
+    },
+    [theme.breakpoints.up("md")]: {
+      margin: "40px 0 0 155px",
+    },
+    textAlign: "left",
+  },
+  fileInputLabel: {
+    marginRight: "15px",
+  },
 }));
 
 export default function CreatePostModal(props) {
@@ -38,6 +84,7 @@ export default function CreatePostModal(props) {
 
   const [postData, setPostData] = useState({ title: "", content: "" });
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [image, setImage] = useState();
 
   const handleOpen = () => {
     setIsModalOpened(true);
@@ -54,7 +101,11 @@ export default function CreatePostModal(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    createPost(postData);
+    const data = new FormData();
+    data.append("title", postData.title);
+    data.append("content", postData.content);
+    data.append("image", image);
+    createPost(data);
     setPostData({ title: "", content: "" });
     handleClose();
   };
@@ -83,6 +134,7 @@ export default function CreatePostModal(props) {
         <Fade in={isModalOpened}>
           <div className={classes.paper}>
             <form
+              encType="multipart/form-data"
               className={classes.postCreationForm}
               noValidate
               autoComplete="off"
@@ -110,6 +162,21 @@ export default function CreatePostModal(props) {
                   variant="outlined"
                   onChange={handleChange("content")}
                 />
+              </div>
+              <div className={classes.fileInput}>
+                <label className={classes.fileInputLabel} htmlFor="file">
+                  File:
+                </label>
+                <input
+                  className={classes.fileInputButton}
+                  type="file"
+                  id="file"
+                  accept=".jpg, .png"
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    setImage(file);
+                  }}
+                ></input>
               </div>
               <Button className={classes.button} type="submit">
                 Create

@@ -111,11 +111,18 @@ const io = socketIo(server, { serveClient: false });
 const users = [];
 
 //listen on every connection
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   console.log("New user connected", socket.id);
 
-  // get online user list
+  // get online user list and message history
   socket.emit("get_users", users);
+
+  socket.emit("get_messages", await Message.find({}));
+
+  // socket.on("get_messages", async () => {
+  //   io.emit("get_messages", await Message.find({}));
+  // });
+
   socket.on("get_users", () => {
     socket.emit("get_users", users);
   });
@@ -138,8 +145,6 @@ io.on("connection", (socket) => {
 
   //listen on new_message
   socket.on("new_message", async (data) => {
-    console.log(data);
-
     const messageData = {
       sender: data.sender,
       message: data.message,

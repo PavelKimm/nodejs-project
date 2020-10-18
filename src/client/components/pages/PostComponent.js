@@ -71,6 +71,12 @@ export default function PostComponent(props) {
     <div className={classes.post}>
       <div className={classes.postTitle}>{post.title}</div>
       <div className={classes.postContent}>{post.content}</div>
+      <div className={classes.postContent}>
+        <img
+          src={`http://localhost:5000/${post.image}`}
+          className="img-fluid"
+        />
+      </div>
       <div className={classes.editButton}>
         <EditPostModal post={post} editPost={editPost} />
       </div>

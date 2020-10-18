@@ -15,14 +15,9 @@ export function getPostsApi() {
 }
 
 export function createPostApi(postData) {
-  return axios
-    .post(baseUrl + `/api/posts`, {
-      title: postData.title,
-      content: postData.content,
-    })
-    .catch((err) => {
-      alert(err);
-    });
+  return axios.post(baseUrl + `/api/posts`, postData).catch((err) => {
+    alert(err);
+  });
 }
 
 export function editPostApi(postData) {

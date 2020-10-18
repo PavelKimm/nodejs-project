@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 10,
     fontSize: 18,
     marginBottom: "80px",
+    minHeight: "80vh",
   },
 
   textarea: {
@@ -140,10 +141,13 @@ function ChatPage(props) {
   }
 
   useEffect(() => {
-    const socket_ = socketIOClient("https://harmist.space");
+    // const socket_ = socketIOClient("https://harmist.space");
+    const socket_ = socketIOClient("http://127.0.0.1:5000");
 
-    socket_.on("fetch_message", (data) => {
-      setMessages(data);
+    socket_.on("get_messages", (data) => {
+      for (let i = 0; i < data.length; i++) messages.push(data[i]);
+      setMessages([...messages]);
+      console.log(messages);
     });
 
     socket_.on("new_message", (data) => {
