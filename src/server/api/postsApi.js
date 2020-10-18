@@ -15,17 +15,15 @@ export const getOne = async function (req, res, next) {
 };
 
 export const createOne = async function (req, res, next) {
-  const {
-    file,
-    body: { title, content },
-  } = req;
+  const url = req.protocol + "://" + req.get("host");
 
   const post = new Post({
     _id: mongoose.Types.ObjectId(),
-    title: title,
-    content: content,
-    image: path.join(file.destination, file.filename),
+    title: req.body.title,
+    content: req.body.content,
+    image: url + "/uploads/" + req.file.filename,
   });
+
   await Post.create(post, function (err, post) {
     if (err) throw err;
     res.json(post);

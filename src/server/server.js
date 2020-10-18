@@ -92,7 +92,13 @@ const app = express();
 // app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParserJSON);
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 app.use(express.static("build"));
+app.use("/uploads", express.static("uploads"));
 
 // routes
 app.use("/api/posts", postRoutes);
