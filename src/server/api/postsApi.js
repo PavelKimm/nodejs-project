@@ -15,7 +15,7 @@ export const getOne = async function (req, res, next) {
 };
 
 export const createOne = async function (req, res, next) {
-  const url = req.protocol + "://" + req.get("host");
+  const url = "https://" + req.get("host");
 
   const post = new Post({
     _id: mongoose.Types.ObjectId(),

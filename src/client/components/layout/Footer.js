@@ -18,5 +18,13 @@ const useStyles = makeStyles({
 export default function Footer() {
   const classes = useStyles();
 
-  return <footer className={classes.footer}>This is a footer</footer>;
+  return (
+    <footer className={classes.footer}>
+      <div style={{ marginBottom: "10px" }}>
+        XX ANNIVERSARY INTERNATIONAL CONFERENCE ON SCIENCE AND TECHNOLOGY
+        RUSSIA-KOREA-CIS
+      </div>
+      <div>2020 y.</div>
+    </footer>
+  );
 }

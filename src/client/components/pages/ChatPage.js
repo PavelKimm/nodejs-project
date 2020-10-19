@@ -141,8 +141,8 @@ function ChatPage(props) {
   }
 
   useEffect(() => {
-    // const socket_ = socketIOClient("https://harmist.space");
-    const socket_ = socketIOClient("http://127.0.0.1:5000");
+    const socket_ = socketIOClient("https://harmist.space");
+    // const socket_ = socketIOClient("http://127.0.0.1:5000");
 
     socket_.on("get_messages", (data) => {
       for (let i = 0; i < data.length; i++) messages.push(data[i]);
