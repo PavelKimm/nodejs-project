@@ -101,13 +101,17 @@ export default function CreatePostModal(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData();
-    data.append("title", postData.title);
-    data.append("content", postData.content);
-    data.append("image", image);
-    createPost(data);
-    setPostData({ title: "", content: "" });
-    handleClose();
+    if (!image) {
+      alert("Please, choose the image");
+    } else {
+      const data = new FormData();
+      data.append("title", postData.title);
+      data.append("content", postData.content);
+      data.append("image", image);
+      createPost(data);
+      setPostData({ title: "", content: "" });
+      handleClose();
+    }
   };
 
   return (
@@ -176,7 +180,8 @@ export default function CreatePostModal(props) {
                     const file = event.target.files[0];
                     setImage(file);
                   }}
-                ></input>
+                  required="required"
+                />
               </div>
               <Button className={classes.button} type="submit">
                 Create

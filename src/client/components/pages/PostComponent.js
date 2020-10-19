@@ -45,12 +45,18 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2),
     right: theme.spacing(3),
   },
-  post: { marginTop: 50 },
+  post: { marginTop: 50, textAlign: "center" },
+  postInner: { margin: "auto" },
   postTitle: { textAlign: "center" },
   postContent: { textAlign: "center" },
-  deleteButton: { textAlign: "right" },
-  editButton: { textAlign: "right" },
-  likesButton: { textAlign: "center" },
+  deleteButton: { textAlign: "right", float: "right", marginRight: "10%" },
+  editButton: { textAlign: "right", float: "right" },
+  likesButton: { textAlign: "center", float: "left", marginLeft: "10%" },
+  postImage: {
+    display: "block",
+    float: "left",
+  },
+  postImageDiv: { width: "250px", border: "1px solid grey" },
 }));
 
 function MyButtonRaw(props) {
@@ -69,31 +75,41 @@ export default function PostComponent(props) {
 
   return (
     <div className={classes.post}>
-      <div className={classes.postTitle}>{post.title}</div>
-      <div className={classes.postContent}>{post.content}</div>
-      <div className={classes.postContent}>
-        <img src={post.image} className="img-fluid" />
+      <div className={classes.postInner}>
+        <div className={classes.postTitle}>{post.title}</div>
+        <div className={classes.postContent}>{post.content}</div>
+        <img
+          width="300"
+          src={post.image}
+          className={classes.postImage}
+          className="img-fluid"
+        />
+        <div className={classes.deleteButton}>
+          <Tooltip title="Delete">
+            <IconButton
+              aria-label="delete"
+              onClick={() => deletePost(post._id)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <div className={classes.editButton}>
+          <EditPostModal post={post} editPost={editPost} />
+        </div>
+
+        <div className={classes.likesButton}>
+          <React.Fragment>
+            <MyButton color="green">
+              <ThumbUpAltIcon />
+            </MyButton>
+            <MyButton color="red">
+              <ThumbDownAltIcon />
+            </MyButton>
+          </React.Fragment>
+        </div>
       </div>
-      <div className={classes.editButton}>
-        <EditPostModal post={post} editPost={editPost} />
-      </div>
-      <div className={classes.deleteButton}>
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete" onClick={() => deletePost(post._id)}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
-      <div className={classes.likesButton}>
-        <React.Fragment>
-          <MyButton color="green">
-            <ThumbUpAltIcon />
-          </MyButton>
-          <MyButton color="red">
-            <ThumbDownAltIcon />
-          </MyButton>
-        </React.Fragment>
-      </div>
+      <hr></hr>
     </div>
   );
 }
